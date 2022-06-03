@@ -2,6 +2,10 @@
 // <reference path='color/colormodels.ts'/>
 // <reference path='../raw/tut.matter.js'/>
 
+import Matter from "matter-js";
+import { phys, newBounds } from "./phys";
+import { Substance, SubstGroup } from "./substance";
+
 // import _ from "lodash";
 
 

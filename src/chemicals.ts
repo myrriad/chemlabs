@@ -1,6 +1,12 @@
 /// <reference path='substance.ts'/>
 
-const chemicals = new Map() as Map<string, SubstanceMaker> & { saveCustom: (chem: NewAtomTracker) => SubstanceMaker };
+import { spectra_kmno4_f } from "./color/colortest";
+import { NewAtomTracker } from "./command";
+import { ptable } from "./data/ptable";
+import { makeAqueous, makeMolecular, makeSpectralAqueous, Substance, SubstanceMaker } from "./substance";
+import { W } from "./tungstenfunction";
+
+export const chemicals = new Map() as Map<string, SubstanceMaker> & { saveCustom: (chem: NewAtomTracker) => SubstanceMaker };
 
 
 
@@ -47,7 +53,6 @@ chemicals.saveCustom = function (atomt: NewAtomTracker) {
 }
 // new method below
 
-type JsonChemical = { state: string };
 function chemicalFromJson(all: any, defaul: JsonChemical, altStates?: JsonChemical[], freeze = true): SubstanceMaker { //sObj?: any, lObj?: any, gObj?: any, aqObj?: any){
     return SubstanceMaker.fromJson(all, defaul, altStates, freeze);
 }

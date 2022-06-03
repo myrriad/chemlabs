@@ -1,6 +1,9 @@
 
 // TODO i've just created a glorified alias system. 
 
+import nerdamer = require('nerdamer');
+import { MolecularSubstance, Substance } from './substance';
+
 let idealGasLaw = nerdamer('P*V=n*R*T');
 (() => {
     let evaluated = idealGasLaw.evaluate({ P: 1, V: 2, n: 3, R: 9.8 });

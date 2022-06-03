@@ -1,4 +1,4 @@
-/// <reference path='matter.min.js'/>
+/// <reference path='../libs/matter.min.js'/>
 // const universe = {};
 __ = function() {
     // module aliases
@@ -9,7 +9,7 @@ __ = function() {
         Composite = Matter.Composite;
 
     // custom modification that checks
-    Engine._bodiesApplyGravity = function (bodies, gravity) {
+    Engine._bodiesApplyGravity = function(bodies, gravity) {
         var gravityScale = typeof gravity.scale !== 'undefined' ? gravity.scale : 0.001;
         if ((gravity.x === 0 && gravity.y === 0) || gravityScale === 0) {
             return;
@@ -40,13 +40,21 @@ __ = function() {
     // create two boxes and a ground
     // var boxA = Bodies.rectangle(400, 200, 80, 80);
     // var boxB = Bodies.rectangle(450, 50, 80, 80);
-    var ground = Bodies.rectangle(500, 610, 1000, 60, { isStatic: true }); ground.label = 'ground'; ground.zIndex = -999;
-    var lwall = Bodies.rectangle(0, 0, 60, 1500, { isStatic: true }); lwall.label = 'lwall'; lwall.zIndex = -999;
-    var rwall = Bodies.rectangle(canva.width, 0, 60, 2000, { isStatic: true }); rwall.label = 'rwall'; rwall.zIndex = -999;
-    var ceil = Bodies.rectangle(500, 0, 1000, 60, { isStatic: true }); ceil.label = 'ceil'; ceil.zIndex = -999;
+    var ground = Bodies.rectangle(500, 610, 1000, 60, { isStatic: true });
+    ground.label = 'ground';
+    ground.zIndex = -999;
+    var lwall = Bodies.rectangle(0, 0, 60, 1500, { isStatic: true });
+    lwall.label = 'lwall';
+    lwall.zIndex = -999;
+    var rwall = Bodies.rectangle(canva.width, 0, 60, 2000, { isStatic: true });
+    rwall.label = 'rwall';
+    rwall.zIndex = -999;
+    var ceil = Bodies.rectangle(500, 0, 1000, 60, { isStatic: true });
+    ceil.label = 'ceil';
+    ceil.zIndex = -999;
     ground.collisionFilter = lwall.collisionFilter = rwall.collisionFilter = ceil.collisionFilter = CollisionFilters.WALL;
     // add all of the bodies to the world
-    Composite.add(engine.world, [/*boxA, boxB, */ground, lwall, rwall, ceil]);
+    Composite.add(engine.world, [ /*boxA, boxB, */ ground, lwall, rwall, ceil]);
 
     // create a renderer
     var render = Render.create({
@@ -79,7 +87,7 @@ __ = function() {
                 visible: false
             },
             stiffness: 0.8
-        } ,
+        },
         collisionFilter: CollisionFilters.MOUSE
     });
 

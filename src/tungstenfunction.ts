@@ -1,6 +1,8 @@
 /// <reference path='command.ts'/>
 
-namespace Tokenizers {
+import { formulaTknr, NewAtomTracker, QtyUnitList, quantitiesTknr, whitespaceTknr, _isNumeric } from "./command";
+
+export namespace Tokenizers {
     export function WStringTknr(inp: string, startidx = 0): [NewAtomTracker, QtyUnitList] {
         if (startidx >= inp.length)
             throw ReferenceError("bruh"); // really?
@@ -22,7 +24,7 @@ namespace Tokenizers {
         }
     }
 }
-let W = function (inp: string, display = true): Substance {
+export let W = function (inp: string, display = true): Substance {
     let subst;
     let [chem, qty] = Tokenizers.WStringTknr(inp);
     // form.formula

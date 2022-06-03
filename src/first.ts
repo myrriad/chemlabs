@@ -1,5 +1,3 @@
-// import { Vector } from "matter-js";
-
 
 let __ = undefined;
 
@@ -11,6 +9,13 @@ let lastClickedObject = undefined;
 type num = number;
 type tup = Array<number>;
 type tup3 = [num, num, num];
+
+// we use mixins. see https://www.typescriptlang.org/docs/handbook/mixins.html
+// this is in substance.ts
+type Mixin<T> = new (...args: any[]) => T;
+
+type JsonChemical = { state: string };
+
 // type vec = Vector;
 let _hex = function () {
     function _componentToHex(c: number) {
@@ -58,7 +63,7 @@ class CollisionFilters {
 enum ScreenState {
     PAUSED, RUNNING, CREDITS
 }
-let universe = {} as { engine: Matter.Engine, world: Matter.World, runner: Matter.Runner, paused: Boolean, screenstate: ScreenState, glob: Global};
+let universe = {} as { engine: Matter.Engine, world: Matter.World, runner: Matter.Runner, paused: Boolean, screenstate: ScreenState, glob: any};
 universe.paused = false;
 
 function getCanvas(): HTMLCanvasElement {

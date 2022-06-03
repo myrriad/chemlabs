@@ -1,4 +1,29 @@
-const ptable = [
+export const ptable_symb_tree = { 'A': ['c', 'g', 'l', 'm', 'r', 's', 't', 'u'], 'B': ['', 'a', 'e', 'h', 'i', 'k', 'r'], 'C': ['', 'a', 'd', 'e', 'f', 'l', 'm', 'n', 'o', 'r', 's', 'u'], 'D': ['b', 's', 'y'], 'E': ['r', 's', 'u'], 'F': ['', 'e', 'l', 'm', 'r'], 'G': ['a', 'd', 'e'], 'H': ['', 'e', 'f', 'g', 'o', 's'], 'I': ['', 'n', 'r'], 'K': ['', 'r'], 'L': ['a', 'i', 'r', 'u', 'v'], 'M': ['c', 'd', 'g', 'n', 'o', 't'], 'N': ['', 'a', 'b', 'd', 'e', 'h', 'i', 'o', 'p'], 'O': ['', 'g', 's'], 'P': ['', 'a', 'b', 'd', 'm', 'o', 'r', 't', 'u'], 'R': ['a', 'b', 'e', 'f', 'g', 'h', 'n', 'u'], 'S': ['', 'b', 'c', 'e', 'g', 'i', 'm', 'n', 'r'], 'T': ['a', 'b', 'c', 'e', 'h', 'i', 'l', 'm', 's'], 'U': ['', 'ue'], 'V': [''], 'W': [''], 'X': ['e'], 'Y': ['', 'b'], 'Z': ['n', 'r'] }
+export const ptable_symbs = ["", "H", "He", "Li", "Be", "B", "C", "N", "O", "F", "Ne", "Na", "Mg", "Al", "Si", "P", "S", "Cl", "Ar", "K", "Ca", "Sc", "Ti", "V", "Cr", "Mn", "Fe", "Co", "Ni", "Cu", "Zn", "Ga", "Ge", "As", "Se", "Br", "Kr", "Rb", "Sr", "Y", "Zr", "Nb", "Mo", "Tc", "Ru", "Rh", "Pd", "Ag", "Cd", "In", "Sn", "Sb", "Te", "I", "Xe", "Cs", "Ba", "La", "Ce", "Pr", "Nd", "Pm", "Sm", "Eu", "Gd", "Tb", "Dy", "Ho", "Er", "Tm", "Yb", "Lu", "Hf", "Ta", "W", "Re", "Os", "Ir", "Pt", "Au", "Hg", "Tl", "Pb", "Bi", "Po", "At", "Rn", "Fr", "Ra", "Ac", "Th", "Pa", "U", "Np", "Pu", "Am", "Cm", "Bk", "Cf", "Es", "Fm", "Md", "No", "Lr", "Rf", "Db", "Sg", "Bh", "Hs", "Mt", "Ds", "Rg", "Cn", "Nh", "Fl", "Mc", "Lv", "Ts", "Og", "Uue"];
+// colors from https://periodictable.com/Properties/A/Color.html
+// regex used: (.+?)\t(.+?)\t(.+?)\t(.+?)(\t(.+?)\t(.+?))?(\n|$) REPLACE $1: $2\n
+// ADD (.+?)\t(.+?)\t(.+?)\t(.+?)(\t(.+?)\t(.+?))?(\n|$) REPLACE $3: $4\n
+// ADD (.+?)\t(.+?)\t(.+?)\t(.+?)(\t(.+?)\t(.+?))?(\n|$) REPLACE $6: $7\n
+
+// Silver = #C0C0C0
+// SlateGray = #708090
+// Gray = #808080	
+// N/A = colorless = undefined
+// Black = #FFFFFF
+// Yellow = #FFC832
+// Red = #A52A2A (bromine)
+// Gold =  #FFD700
+// Copper = 
+
+/*
+for(let i=0;i<120;i++) {
+    ptable[i].rgb = ptable_colors[i];
+}
+*/
+// const ptable_colors = [undefined, null, null, 'C0C0C0', '708090', '000000', '000000', null, null, null, null, 'C0C0C0', 'C0C0C0', 'C0C0C0', '808080', null, 'FFC832', 'FFC832', null, 'C0C0C0', 'C0C0C0', 'C0C0C0', 'C0C0C0', 'C0C0C0', 'C0C0C0', 'C0C0C0', '808080', '808080', '808080', 'b87333', '708090', 'C0C0C0', '808080', 'C0C0C0', '808080', 'A52A2A', null, 'C0C0C0', 'C0C0C0', 'C0C0C0', 'C0C0C0', '808080', '808080', 'C0C0C0', 'C0C0C0', 'C0C0C0', 'C0C0C0', 'C0C0C0', 'C0C0C0', 'C0C0C0', 'C0C0C0', 'C0C0C0', 'C0C0C0', '708090', null, 'C0C0C0', 'C0C0C0', 'C0C0C0', 'C0C0C0', 'C0C0C0', 'C0C0C0', 'C0C0C0', 'C0C0C0', 'C0C0C0', 'C0C0C0', 'C0C0C0', 'C0C0C0', 'C0C0C0', 'C0C0C0', 'C0C0C0', 'C0C0C0', 'C0C0C0', '808080', '808080', '808080', '808080', '708090', 'C0C0C0', '808080', 'FFD700', 'C0C0C0', 'C0C0C0', '708090', '808080', 'C0C0C0', 'C0C0C0', null, 'C0C0C0', 'C0C0C0', 'C0C0C0', 'C0C0C0', 'C0C0C0', 'C0C0C0', 'C0C0C0', 'C0C0C0', 'C0C0C0', 'C0C0C0', undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined,];
+
+
+export const ptable = [
     {}, // start at 1 to align with atomic number
     {
         "name": "Hydrogen",
@@ -5201,27 +5226,3 @@ const ptable = [
         "cpk-hex": null
     }
 ];
-const ptable_symb_tree = { 'A': ['c', 'g', 'l', 'm', 'r', 's', 't', 'u'], 'B': ['', 'a', 'e', 'h', 'i', 'k', 'r'], 'C': ['', 'a', 'd', 'e', 'f', 'l', 'm', 'n', 'o', 'r', 's', 'u'], 'D': ['b', 's', 'y'], 'E': ['r', 's', 'u'], 'F': ['', 'e', 'l', 'm', 'r'], 'G': ['a', 'd', 'e'], 'H': ['', 'e', 'f', 'g', 'o', 's'], 'I': ['', 'n', 'r'], 'K': ['', 'r'], 'L': ['a', 'i', 'r', 'u', 'v'], 'M': ['c', 'd', 'g', 'n', 'o', 't'], 'N': ['', 'a', 'b', 'd', 'e', 'h', 'i', 'o', 'p'], 'O': ['', 'g', 's'], 'P': ['', 'a', 'b', 'd', 'm', 'o', 'r', 't', 'u'], 'R': ['a', 'b', 'e', 'f', 'g', 'h', 'n', 'u'], 'S': ['', 'b', 'c', 'e', 'g', 'i', 'm', 'n', 'r'], 'T': ['a', 'b', 'c', 'e', 'h', 'i', 'l', 'm', 's'], 'U': ['', 'ue'], 'V': [''], 'W': [''], 'X': ['e'], 'Y': ['', 'b'], 'Z': ['n', 'r'] }
-const ptable_symbs = ["", "H", "He", "Li", "Be", "B", "C", "N", "O", "F", "Ne", "Na", "Mg", "Al", "Si", "P", "S", "Cl", "Ar", "K", "Ca", "Sc", "Ti", "V", "Cr", "Mn", "Fe", "Co", "Ni", "Cu", "Zn", "Ga", "Ge", "As", "Se", "Br", "Kr", "Rb", "Sr", "Y", "Zr", "Nb", "Mo", "Tc", "Ru", "Rh", "Pd", "Ag", "Cd", "In", "Sn", "Sb", "Te", "I", "Xe", "Cs", "Ba", "La", "Ce", "Pr", "Nd", "Pm", "Sm", "Eu", "Gd", "Tb", "Dy", "Ho", "Er", "Tm", "Yb", "Lu", "Hf", "Ta", "W", "Re", "Os", "Ir", "Pt", "Au", "Hg", "Tl", "Pb", "Bi", "Po", "At", "Rn", "Fr", "Ra", "Ac", "Th", "Pa", "U", "Np", "Pu", "Am", "Cm", "Bk", "Cf", "Es", "Fm", "Md", "No", "Lr", "Rf", "Db", "Sg", "Bh", "Hs", "Mt", "Ds", "Rg", "Cn", "Nh", "Fl", "Mc", "Lv", "Ts", "Og", "Uue"];
-// colors from https://periodictable.com/Properties/A/Color.html
-// regex used: (.+?)\t(.+?)\t(.+?)\t(.+?)(\t(.+?)\t(.+?))?(\n|$) REPLACE $1: $2\n
-// ADD (.+?)\t(.+?)\t(.+?)\t(.+?)(\t(.+?)\t(.+?))?(\n|$) REPLACE $3: $4\n
-// ADD (.+?)\t(.+?)\t(.+?)\t(.+?)(\t(.+?)\t(.+?))?(\n|$) REPLACE $6: $7\n
-
-// Silver = #C0C0C0
-// SlateGray = #708090
-// Gray = #808080	
-// N/A = colorless = undefined
-// Black = #FFFFFF
-// Yellow = #FFC832
-// Red = #A52A2A (bromine)
-// Gold =  #FFD700
-// Copper = 
-
-/*
-for(let i=0;i<120;i++) {
-    ptable[i].rgb = ptable_colors[i];
-}
-*/
-// const ptable_colors = [undefined, null, null, 'C0C0C0', '708090', '000000', '000000', null, null, null, null, 'C0C0C0', 'C0C0C0', 'C0C0C0', '808080', null, 'FFC832', 'FFC832', null, 'C0C0C0', 'C0C0C0', 'C0C0C0', 'C0C0C0', 'C0C0C0', 'C0C0C0', 'C0C0C0', '808080', '808080', '808080', 'b87333', '708090', 'C0C0C0', '808080', 'C0C0C0', '808080', 'A52A2A', null, 'C0C0C0', 'C0C0C0', 'C0C0C0', 'C0C0C0', '808080', '808080', 'C0C0C0', 'C0C0C0', 'C0C0C0', 'C0C0C0', 'C0C0C0', 'C0C0C0', 'C0C0C0', 'C0C0C0', 'C0C0C0', 'C0C0C0', '708090', null, 'C0C0C0', 'C0C0C0', 'C0C0C0', 'C0C0C0', 'C0C0C0', 'C0C0C0', 'C0C0C0', 'C0C0C0', 'C0C0C0', 'C0C0C0', 'C0C0C0', 'C0C0C0', 'C0C0C0', 'C0C0C0', 'C0C0C0', 'C0C0C0', 'C0C0C0', '808080', '808080', '808080', '808080', '708090', 'C0C0C0', '808080', 'FFD700', 'C0C0C0', 'C0C0C0', '708090', '808080', 'C0C0C0', 'C0C0C0', null, 'C0C0C0', 'C0C0C0', 'C0C0C0', 'C0C0C0', 'C0C0C0', 'C0C0C0', 'C0C0C0', 'C0C0C0', 'C0C0C0', 'C0C0C0', undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined,];
-

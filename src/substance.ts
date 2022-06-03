@@ -1,6 +1,12 @@
 // <reference path='phys/physold.ts'/>
+/// <reference path='./first.ts'/>
+import { f_daylight } from "./color/color";
+import { rgb_from_spectrum } from "./color/colormodels";
+import { transmittance } from "./color/colortest";
+import { ComputedQty, NewAtomTracker } from "./command";
+import { PhysicsHook } from "./phys";
 
-class SubstanceType {
+export class SubstanceType {
     // dependent on the state of the subst.
     // intrinsic, intensive properties go here like density
     density?: number; // g/mL
@@ -28,7 +34,7 @@ class SubstanceType {
  * @param x 
  * @deprecated
  */
-function coerceToSystem(x: Substance | SubstGroup): SubstGroup {
+export function coerceToSystem(x: Substance | SubstGroup): SubstGroup {
     // if(!x) return undefined;
     let a = x as any;
     if ('substances' in x && 'equilibria' in x && 'subsystems' in x) return x;
@@ -40,7 +46,7 @@ function coerceToSystem(x: Substance | SubstGroup): SubstGroup {
     return a;
 }
 
-class SubstGroup {
+export class SubstGroup {
     static readonly BOUNDS_ONLY = new SubstGroup(); // pass this to newPhysicsHook to have a bounds-only physhook
     physhook?: PhysicsHook;
 
@@ -70,7 +76,7 @@ var p = new Proxy({}, handler);
 
 p[4]; //returns 16, which is the square of 4.
 */
-class Substance extends SubstGroup {
+export class Substance extends SubstGroup {
     // loc: Locatable = Locatable.NONE;
     physhook?: PhysicsHook;
     // add some stuff to coerce it into technically being a system with only 1 thing in it
@@ -138,19 +144,18 @@ class Substance extends SubstGroup {
         if ('concentration' in this) (this as any).concentration = kval;
     }
 }
-interface SubstanceConstructor {
+export interface SubstanceConstructor {
     new(proto: SubstanceMaker): Substance;
 }
 
 
-// we use mixins. see https://www.typescriptlang.org/docs/handbook/mixins.html
-type Mixin<T> = new (...args: any[]) => T;
 
-interface MolecularSubstance extends Substance {
+
+export interface MolecularSubstance extends Substance {
     molarMass: num;
     mol: num;
 }
-function makeMolecular<T extends Mixin<Substance>>(s: T): Mixin<MolecularSubstance> & T {
+export function makeMolecular<T extends Mixin<Substance>>(s: T): Mixin<MolecularSubstance> & T {
     return class MolecularSubstance extends s {
         get molarMass() { return this.type.molarMass; }
         set molarMass(m) { this.type.molarMass = m; }
@@ -163,23 +168,23 @@ function makeMolecular<T extends Mixin<Substance>>(s: T): Mixin<MolecularSubstan
         }
     }
 }
-const MolecularSubstance = makeMolecular(Substance);
-interface GaseousSubstance extends MolecularSubstance {
+export const MolecularSubstance = makeMolecular(Substance);
+export interface GaseousSubstance extends MolecularSubstance {
     pressure: num;
 }
-function makeGaseous<T extends Mixin<MolecularSubstance>>(x: T): Mixin<GaseousSubstance> & T{
+export function makeGaseous<T extends Mixin<MolecularSubstance>>(x: T): Mixin<GaseousSubstance> & T{
 
     return class GaseousSubstance extends x {
         get pressure() { return this.mol * Constants.Ratm * this.temperature / this.volume }
     }
 }
-const GaseousSubstance = makeGaseous(MolecularSubstance);
+export const GaseousSubstance = makeGaseous(MolecularSubstance);
 
-interface AqueousSubstance {
+export interface AqueousSubstance {
     solvent: Substance;
     concentration: num;
 }
-function makeAqueous<T extends Mixin<MolecularSubstance>>(x: T, solventIn: Substance): Mixin<AqueousSubstance> & T {
+export function makeAqueous<T extends Mixin<MolecularSubstance>>(x: T, solventIn: Substance): Mixin<AqueousSubstance> & T {
     return class AqueousSubstance extends x {
         solvent=solventIn;
         get concentration() {
@@ -201,7 +206,7 @@ function makeAqueous<T extends Mixin<MolecularSubstance>>(x: T, solventIn: Subst
         }
     }
 }
-function makeSpectralAqueous<T extends Mixin<AqueousSubstance>>(x: T, spectra_fIn: (wl: num) => num): Mixin<AqueousSubstance> & T {
+export function makeSpectralAqueous<T extends Mixin<AqueousSubstance>>(x: T, spectra_fIn: (wl: num) => num): Mixin<AqueousSubstance> & T {
     return class SpectralAqueousSubstance extends x {
         spectra_f = spectra_fIn;
         color(background: tup = [255, 255, 255], l: num = 1) {
@@ -209,7 +214,7 @@ function makeSpectralAqueous<T extends Mixin<AqueousSubstance>>(x: T, spectra_fI
         }
     }
 }
-class SubstanceMaker extends SubstanceType {
+export class SubstanceMaker extends SubstanceType {
     static NONE = new SubstanceMaker();
     #statemap = new Map() as Map<string, SubstanceMaker>;
     standardState: SubstanceMaker;
@@ -262,7 +267,7 @@ class SubstanceMaker extends SubstanceType {
             atomTracker.state = this.state;
             orig = chemicals.saveCustom(atomTracker);
         }
-        let ret = orig.form();
+        let ret = orig!.form();
         if (qty.mass) ret.mass = qty.mass;
         if (qty.mol && 'mol' in ret) (ret as MolecularSubstance).mol = qty.mol;
         if (qty.vol) ret.volume = qty.vol;
